@@ -9,6 +9,12 @@ const client = new Redis({
 const LIMIT_PER_MIN = 10
 
 async function rate_limiter(req, res, next) {
+
+    const ip = req.ip
+    if (!ip) return res.status(400).json({
+        message: 'IP not found'
+    })
+
     const user_data = await client.get(req.ip)
 
     if (!user_data) {

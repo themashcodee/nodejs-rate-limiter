@@ -5,6 +5,7 @@ const app = express();
 const PORT = process.env['PORT'] ?? 8000;
 const { rate_limiter } = require('./rate-limter')
 
+app.set('trust proxy', true)
 app.use(rate_limiter)
 
 app.get('/', (_, res) => res.json({
